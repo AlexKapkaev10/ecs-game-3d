@@ -1,0 +1,25 @@
+using Leopotam.Ecs;
+using UnityEngine;
+
+namespace Project.Code.Scripts
+{
+    sealed class PlayerJumpSendEventSystem : IEcsRunSystem
+    {
+        private readonly EcsWorld _world = null;
+        private readonly EcsFilter<PlayerTag, JumpComponent> _playerFilter = null;
+        
+        public void Run()
+        {
+            if (!Input.GetKeyDown(KeyCode.Space))
+            {
+                return;
+            }
+            
+            foreach (var i in _playerFilter)
+            {
+                ref var entity = ref _playerFilter.GetEntity(i);
+                entity.Get<JumpEvent>();
+            }
+        }
+    }
+}

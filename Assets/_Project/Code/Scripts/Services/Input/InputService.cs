@@ -8,7 +8,7 @@ namespace Project.Services
         Vector2 GetLookDelta();
         float GetLookMin();
         float GetLookMax();
-        bool IsJumpPressedDown();
+        bool IsJumpButtonPressed();
     }
     
     public class InputService : IInputService
@@ -40,7 +40,7 @@ namespace Project.Services
             return _config.LookMax;
         }
 
-        public bool IsJumpPressedDown()
+        public bool IsJumpButtonPressed()
         {
             return Input.GetKeyDown(KeyCode.Space);
         }

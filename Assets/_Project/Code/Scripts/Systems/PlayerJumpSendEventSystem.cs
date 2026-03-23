@@ -1,15 +1,16 @@
 using Leopotam.Ecs;
-using UnityEngine;
+using Project.Services;
 
 namespace Project.Code.Scripts
 {
     sealed class PlayerJumpSendEventSystem : IEcsRunSystem
     {
         private readonly EcsFilter<PlayerTag, JumpComponent> _playerFilters = null;
+        private readonly IInputService _inputService = null;
         
         public void Run()
         {
-            if (!Input.GetKeyDown(KeyCode.Space))
+            if (!_inputService.IsJumpButtonPressed())
             {
                 return;
             }

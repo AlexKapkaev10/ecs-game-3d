@@ -5,8 +5,7 @@ namespace Project.Code.Scripts
 {
     sealed class PlayerJumpSendEventSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
-        private readonly EcsFilter<PlayerTag, JumpComponent> _playerFilter = null;
+        private readonly EcsFilter<PlayerTag, JumpComponent> _playerFilters = null;
         
         public void Run()
         {
@@ -15,9 +14,9 @@ namespace Project.Code.Scripts
                 return;
             }
             
-            foreach (var i in _playerFilter)
+            foreach (var filter in _playerFilters)
             {
-                ref var entity = ref _playerFilter.GetEntity(i);
+                ref var entity = ref _playerFilters.GetEntity(filter);
                 entity.Get<JumpEvent>();
             }
         }

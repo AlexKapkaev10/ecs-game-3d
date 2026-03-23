@@ -5,7 +5,6 @@ namespace Project.Code.Scripts
 {
     public sealed class MovementSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _world = null;
         private readonly EcsFilter<ModelComponent, MovableComponent, DirectionComponent> _movableFilter = null;
 
         public void Run()

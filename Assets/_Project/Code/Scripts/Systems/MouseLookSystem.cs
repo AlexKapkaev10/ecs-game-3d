@@ -5,16 +5,16 @@ namespace Project.Code.Scripts
 {
     public sealed class MouseLookSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private readonly EcsFilter<PlayerTag> _playerFilter = null;
+        private readonly EcsFilter<PlayerTag> _playerFilters = null;
         private readonly EcsFilter<PlayerTag, ModelComponent, MouseLookComponent> _mouseLookFilter = null;
         
         private Quaternion startTransformRotation;
         
         public void Init()
         {
-            foreach (var filter in _playerFilter)
+            foreach (var filter in _playerFilters)
             {
-                ref var entity = ref _playerFilter.GetEntity(filter);
+                ref var entity = ref _playerFilters.GetEntity(filter);
                 ref var model = ref entity.Get<ModelComponent>();
 
                 startTransformRotation = model.ModelTransform.rotation;

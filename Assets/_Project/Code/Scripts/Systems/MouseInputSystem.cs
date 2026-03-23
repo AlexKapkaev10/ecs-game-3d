@@ -5,7 +5,7 @@ namespace Project.Code.Scripts
 {
     public sealed class MouseInputSystem : IEcsRunSystem
     {
-        private readonly EcsFilter<PlayerTag, MouseLookComponent> _playerFilter = null;
+        private readonly EcsFilter<PlayerTag, MouseLookComponent> _playerFilters = null;
         private readonly float _axisMin = -86f;
         private readonly float _axisMax = 75f;
 
@@ -17,9 +17,9 @@ namespace Project.Code.Scripts
             GetAxis();
             ClampAxis();
             
-            foreach (var filter in _playerFilter)
+            foreach (var filter in _playerFilters)
             {
-                ref var lookComponent = ref _playerFilter.Get2(filter);
+                ref var lookComponent = ref _playerFilters.Get2(filter);
 
                 lookComponent.Direction.x = _axisX;
                 lookComponent.Direction.y = _axisY;

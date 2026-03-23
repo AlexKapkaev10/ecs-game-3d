@@ -23,7 +23,6 @@ namespace Project.Code.Scripts
                 }
 
                 velocity.y = Mathf.Sqrt(jumpComponent.Force * -2f * movable.Gravity);
-                //entity.Get<BlockJumpDuration>().Timer = 3f;
             }
         }
     }

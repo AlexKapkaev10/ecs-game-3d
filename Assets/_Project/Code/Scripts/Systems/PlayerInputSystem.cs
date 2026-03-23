@@ -1,33 +1,25 @@
 using Leopotam.Ecs;
-using UnityEngine;
+using Project.Services;
 
 namespace Project.Code.Scripts
 {
     public sealed class PlayerInputSystem : IEcsRunSystem
     {
         private readonly EcsFilter<PlayerTag, DirectionComponent> _directionFilter = null;
-
-        private float _moveX;
-        private float _moveZ;
+        private readonly IInputService _inputService = null;
         
         public void Run()
         {
-            SetDirection();
-            
             foreach (var filter in _directionFilter)
             {
                 ref var directionComponent = ref _directionFilter.Get2(filter);
                 ref var direction = ref directionComponent.Direction;
+                
+                var move = _inputService.GetMoveAxis();
 
-                direction.x = _moveX;
-                direction.z = _moveZ;
+                direction.x = move.x;
+                direction.z = move.y;
             }
-        }
-
-        private void SetDirection()
-        {
-            _moveX = Input.GetAxis("Horizontal");
-            _moveZ = Input.GetAxis("Vertical");
         }
     }
 }

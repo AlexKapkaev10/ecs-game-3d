@@ -1,19 +1,33 @@
+using System;
 using Leopotam.Ecs;
-using UnityEngine;
+using Project.Services;
+using VContainer.Unity;
 using Voody.UniLeo;
 
 namespace Project.Code.Scripts
 {
-    public class EcsStartup : MonoBehaviour
+    public interface IEcsStartup : IStartable, ITickable, IDisposable
     {
-        private EcsWorld _world;
-        private EcsSystems _systems;
+        
+    }
+    
+    public class EcsStartup : IEcsStartup
+    {
+        private readonly EcsWorld _world;
+        private readonly EcsSystems _systems;
+        
+        private readonly IInputService _inputService;
 
-        private void Start()
+        public EcsStartup(IInputService inputService)
         {
             _world = new EcsWorld();
-            
             _systems = new EcsSystems(_world);
+            
+            _inputService = inputService;
+        }
+
+        public void Start()
+        {
             _systems.ConvertScene();
             
             AddInjections();
@@ -23,12 +37,12 @@ namespace Project.Code.Scripts
             _systems.Init();
         }
 
-        private void Update()
+        public void Tick()
         {
             _systems.Run();
         }
 
-        private void OnDestroy()
+        public void Dispose()
         {
             if (_systems == null)
             {
@@ -37,9 +51,6 @@ namespace Project.Code.Scripts
             
             _systems.Destroy();
             _world.Destroy();
-
-            _systems = null;
-            _world = null;
         }
 
         private void AddSystems()
@@ -57,7 +68,7 @@ namespace Project.Code.Scripts
 
         private void AddInjections()
         {
-            
+            _systems.Inject(_inputService);
         }
 
         private void AddOneFrames()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Leopotam.Ecs;
 
@@ -11,6 +9,7 @@ namespace Voody.UniLeo
         ConvertAndDestroy,
         ConvertAndSave
     }
+    
     public class ConvertToEntity : MonoBehaviour
     {
         public ConvertMode convertMode;
